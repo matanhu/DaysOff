@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+<input type="text" ng-model="model" placeholder="הכנס פרטים" ng-keydown="selected=false" />
+<br/>
+
+<div class="items" ng-hide="!model.length || selected">
+  <div class="item" ng-repeat="item in items | filter:model  track by $index" ng-click="handleSelection(item[title])" style="cursor:pointer" ng-class="{active:isCurrent($index)}" ng-mouseenter="setCurrent($index)">
+    <p class="title">{{item[title]}}</p>
+    <p class="subtitle">{{item[subtitle]}}</p>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+﻿<!--
+      <div class="modal-header">
+        <h3 class="modal-title">Event action occurred!</h3>
+      </div>
+      <div class="modal-body">
+        <p>Action:
+        <pre>{{ vm.action }}</pre>
+        </p>
+        <p>Event:
+        <pre>{{ vm.event | json }}</pre>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="$close()">OK</button>
+      </div>
+    -->
+<div style="width:600px; height:900px;">
+    <table class="table table-bordered" style="margin-top: 10px; direction: rtl; text-align: right;"
+        ng-controller="KitchenSinkCtrl">
+        <thead style="direction: rtl; text-align: right;">
+            <tr style="direction: rtl; text-align: right;">
+                <th style="direction: rtl; text-align: right;">
+                    ת.ז. עובד
+                </th>
+                <th style="direction: rtl; text-align: right;">
+                    תחילת חופש
+                </th>
+                <th style="direction: rtl; text-align: right;">
+                    סוף חופש
+                </th>
+                <th style="direction: rtl; text-align: right;">
+                    הערות
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <input type="text" class="form-control" placeholder="ת.ז." readonly ng-model="eventUpdate.employee_id">
+                </td>
+                <td>
+                    <p class="input-group" style="max-width: 250px">
+                        <input type="text" class="form-control" readonly uib-datepicker-popup="dd MMMM yyyy"
+                            ng-model="eventUpdate.startsAt" is-open="eventUpdate.startOpen" max-date="eventUpdate.endsAt"
+                            placeholder="תאריך התחלה" date-disabled="disabled(date, mode)" ng-click="toggleTry($event, 'startOpen', eventUpdate)"
+                            close-text="Close">
+                    </p>
+                    <td>
+                        <p class="input-group" style="max-width: 250px">
+                            <input type="text" class="form-control" readonly uib-datepicker-popup="dd MMMM yyyy"
+                                ng-model="eventUpdate.endsAt" is-open="eventUpdate.endOpen" min-date="eventUpdate.startsAt"
+                                placeholder="תאריך סוף" date-disabled="disabled(date, mode)" ng-click="toggleTry($event, 'endOpen', eventUpdate)"
+                                close-text="Close">
+                        </p>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" placeholder="הערות" ng-model="vm.event.comment">
+                        <button class="btn btn-danger" ng-click="updateEvent(vm.event)">
+                            שמירה
+                        </button>
+                    </td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="color: #ff0000; font-weight: bold;" ng-show="checkDatesOnPopUp">
+        * הוכנסו תאריכים לא תקינים
+    </div>
+    <div style="color: #ff0000; font-weight: bold; margin-bottom: 20px; float: right;
+        margin-right: 20px;">
+        קיימים תאריכים חסומים
+        <div ng-repeat="dayBlock in vm.dayBlocksArray">
+            בין התאריכים {{dayBlock.startsAt | toDate | date}} ל {{dayBlock.endsAt | toDate
+            | date}} נחסם ע"י {{dayBlock.employee_name}}, סיבת החסימה: {{dayBlock.comment}}.
+        </div>
+    </div>
+</div>
